@@ -1,0 +1,83 @@
+from pymodbus.client import ModbusTcpClient
+
+def ler_dados_convertidos(host='localhost', port=502, unit_id=1):
+    client = ModbusTcpClient(host=host, port=port)
+    client.connect()
+
+    # Holding Registers
+    response_hr = client.read_holding_registers(address=0, count=20, slave=unit_id)
+    if not response_hr.isError():
+        registros = response_hr.registers
+    else:
+        print("Erro ao ler Holding Registers")
+        return
+
+    # Coils
+    response_coils = client.read_coils(address=0, count=10, slave=unit_id)
+    if not response_coils.isError():
+        coils = response_coils.bits
+    else:
+        print("Erro ao ler Coils")
+        return
+
+    client.close()
+
+    # Exibição dos dados
+    print("\n=== Captura de Dados Brutos ===")
+
+    print("\nTemperaturas (°C)")
+    print("  40001: Temperatura ambiente (235 = 23.5°C)")
+    print("  40002: Temperatura motor (452 = 45.2°C)")
+    print("  40003: Temperatura externa (189 = 18.9°C)")
+    
+    print("\nPressões (bar)")
+    print("  40004: Pressão sistema (1250 = 12.50 bar)")
+    print("  40005: Pressão linha (850 = 8.50 bar)")
+
+    print("\nVazões (L/min)")
+    print("  40006: Vazão principal (45 L/min)")
+    print("  40007: Vazão secundária (23 L/min)")
+
+    print("\nNíveis (%)")
+    print("  40008: Nível tanque 1 (78%)")
+    print("  40009: Nível tanque 2 (92%)")
+
+    print("\nTensões (V)")
+    print("  40010: Tensão L1 (2201 = 220.1V)")
+    print("  40011: Tensão L2 (2198 = 219.8V)")
+    print("  40012: Tensão L3 (2203 = 220.3V)")
+
+    print("\nCorrentes (A)")
+    print("  40013: Corrente L1 (152 = 15.2A)")
+    print("  40014: Corrente L2 (148 = 14.8A)")
+    print("  40015: Corrente L3 (155 = 15.5A)")
+    
+    print("\nStatus e Contadores")
+    print("  40016: Status geral (1 = Alarme)")
+    print("  40017: Alarme temperatura (0 = OK)")
+    print("  40018: Contador produção (12547)")
+    print("  40019: Contador falhas (89)")
+    if len(registros) > 19:
+        print(f"  Horas funcionamento: {registros[19]} h")
+    else:
+        print("  Dado 'Horas funcionamento' ausente ou não lido.")
+
+    print("\nCoils (Status Digital)")
+    nomes_coils = [
+        "Bomba principal",
+        "Bomba reserva",
+        "Válvula entrada",
+        "Válvula saída",
+        "Sistema automático",
+        "Modo manual",
+        "Alarme ativo",
+        "Manutenção",
+        "Sensor presença",
+        "Porta aberta"
+    ]
+    for i, nome in enumerate(nomes_coils):
+        print(f"  {nome}: {'Ativado' if coils[i] else 'Desativado'}")
+
+
+if __name__ == "__main__":
+    ler_dados_convertidos()
