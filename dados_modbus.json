@@ -1,41 +1,41 @@
 {
   "temperaturas": {
-    "ambiente": 23.5,
-    "motor": 45.2,
-    "externa": 18.9
+    "ambiente": 45.2,
+    "motor": 18.9,
+    "externa": 125.0
   },
   "pressoes": {
-    "sistema": 12.5,
-    "linha": 8.5
+    "sistema": 8.5,
+    "linha": 0.45
   },
   "vazoes": {
-    "principal": 45,
-    "secundaria": 23
+    "principal": 23,
+    "secundaria": 78
   },
   "niveis": {
-    "tanque1": 78,
-    "tanque2": 92
+    "tanque1": 92,
+    "tanque2": "inválido"
   },
   "tensoes": {
-    "L1": 220.1,
-    "L2": 219.8,
-    "L3": 220.3
+    "L1": 219.8,
+    "L2": 220.3,
+    "L3": "inválido"
   },
   "correntes": {
-    "L1": 15.2,
-    "L2": 14.8,
-    "L3": 15.5
+    "L1": 14.8,
+    "L2": 15.5,
+    "L3": 0.1
   },
   "status": {
-    "geral": 1,
-    "alarme_temperatura": 0,
-    "contador_producao": 12547,
-    "contador_falhas": 89,
-    "horas_funcionamento": 1456
+    "geral": 0,
+    "alarme_temperatura": 12547,
+    "contador_producao": 89,
+    "contador_falhas": 1456,
+    "horas_funcionamento": "inválido"
   },
   "coils": {
-    "ligado": true,
-    "em_alarme": false,
-    "manual": true
+    "ligado": false,
+    "em_alarme": true,
+    "manual": false
   }
 }
